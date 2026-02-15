@@ -8,6 +8,9 @@
     "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
     "start": "npm run start --prefix server"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dulina-Chandul/MERN-Chat-Application.git"
