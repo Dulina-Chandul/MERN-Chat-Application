@@ -1,3 +1,8 @@
+import bcrypt from "bcryptjs";
+
+import User from "../../models/user/User.model.js";
+import { generateToken } from "../../utils/jwt.js";
+
 export const authController = {
   signUp: async (req, res) => {
     const { fullname, email, password } = req.body;
@@ -17,6 +22,40 @@ export const authController = {
       if (!emailRegex.test(email)) {
         return res.status(400).json({ message: "Please enter a valid email" });
       }
-    } catch (error) {}
+
+      const user = await User.findOne({ email });
+
+      if (user) {
+        return res.status(400).json({ message: "Email already exists" });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const newUser = new User({
+        fullname,
+        email,
+        password: hashedPassword,
+      });
+
+      if (newUser) {
+        generateToken(newUser._id, res);
+        await newUser.save();
+        return res.status(201).json({
+          message: "User created successfully",
+          user: {
+            id: newUser._id,
+            fullname: newUser.fullname,
+            email: newUser.email,
+            profilePicture: newUser.profilePicture,
+          },
+        });
+      } else {
+        return res.status(500).json({ message: "Error while creating user" });
+      }
+    } catch (error) {
+      console.log("Error while signing up: " + error.message);
+      return res.status(500).json({ message: "Error while signing up" });
+    }
   },
 };
