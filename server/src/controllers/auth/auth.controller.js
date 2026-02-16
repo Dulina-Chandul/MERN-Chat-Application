@@ -1,14 +1,14 @@
 import bcrypt from "bcryptjs";
 
-import User from "../../models/user/User.model.js";
 import { generateToken } from "../../utils/jwt.js";
+import User from "../../models/user/User.model.js";
 
 export const authController = {
   signUp: async (req, res) => {
-    const { fullname, email, password } = req.body;
+    const { fullName, email, password } = req.body;
 
     try {
-      if (!fullname || !email || !password) {
+      if (!fullName || !email || !password) {
         return res.status(400).json({ message: "Please fill all the fields" });
       }
 
@@ -33,7 +33,7 @@ export const authController = {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       const newUser = new User({
-        fullname,
+        fullName,
         email,
         password: hashedPassword,
       });
@@ -45,7 +45,7 @@ export const authController = {
           message: "User created successfully",
           user: {
             id: newUser._id,
-            fullname: newUser.fullname,
+            fullname: newUser.fullName,
             email: newUser.email,
             profilePicture: newUser.profilePicture,
           },
@@ -55,7 +55,9 @@ export const authController = {
       }
     } catch (error) {
       console.log("Error while signing up: " + error.message);
-      return res.status(500).json({ message: "Error while signing up" });
+      return res
+        .status(500)
+        .json({ message: "Error while signing up " + error.message });
     }
   },
 };
