@@ -1,7 +1,10 @@
 import bcrypt from "bcryptjs";
 
-import { generateToken } from "../../utils/jwt.js";
 import User from "../../models/user/User.model.js";
+
+import { generateToken } from "../../utils/jwt.js";
+import { sendWelcomeEmail } from "../../utils/emailHandlers.js";
+import { CLIENT_URL } from "../../constants/env.js";
 
 export const authController = {
   signUp: async (req, res) => {
@@ -41,7 +44,7 @@ export const authController = {
       if (newUser) {
         const savedUser = await newUser.save();
         generateToken(savedUser._id, res);
-        return res.status(201).json({
+        res.status(201).json({
           message: "User created successfully",
           user: {
             id: newUser._id,
@@ -50,6 +53,16 @@ export const authController = {
             profilePicture: newUser.profilePicture,
           },
         });
+
+        try {
+          await sendWelcomeEmail(
+            savedUser.email,
+            savedUser.fullName,
+            CLIENT_URL,
+          );
+        } catch (error) {
+          console.log("Error while sending welcome email: " + error.message);
+        }
       } else {
         return res.status(500).json({ message: "Error while creating user" });
       }
