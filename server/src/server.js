@@ -3,6 +3,7 @@ import path from "path";
 
 import authRouter from "./routes/auth/auth.route.js";
 import connectDB from "./config/connectDB.js";
+import { PORT } from "./constants/env.js";
 
 import dotenv from "dotenv";
 
@@ -12,8 +13,6 @@ const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json());
-
-const PORT = process.env.PORT || 3000;
 
 app.use("/api/auth", authRouter);
 
