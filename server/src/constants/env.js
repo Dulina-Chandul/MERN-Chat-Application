@@ -25,7 +25,7 @@ export const EMAIL_FROM = getEnv("EMAIL_FROM");
 export const EMAIL_FROM_NAME = getEnv("EMAIL_FROM_NAME");
 
 export const CLIENT_URL = getEnv("CLIENT_URL", "http://localhost:5173");
-// export const CLOUDINARY_CLOUD_NAME = getEnv("CLOUDINARY_CLOUD_NAME");
-// export const CLOUDINARY_API_KEY = getEnv("CLOUDINARY_API_KEY");
-// export const CLOUDINARY_API_SECRET = getEnv("CLOUDINARY_API_SECRET");
+export const CLOUDINARY_CLOUD_NAME = getEnv("CLOUDINARY_CLOUD_NAME");
+export const CLOUDINARY_API_KEY = getEnv("CLOUDINARY_API_KEY");
+export const CLOUDINARY_API_SECRET = getEnv("CLOUDINARY_API_SECRET");
 // export const GEMINI_API_KEY = getEnv("GEMINI_API_KEY");
