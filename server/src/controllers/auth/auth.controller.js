@@ -78,6 +78,10 @@ export const authController = {
     const { email, password } = req.body;
 
     try {
+      if (!email || !password) {
+        return res.status(400).json({ message: "Please fill all the fields" });
+      }
+
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -117,5 +121,51 @@ export const authController = {
     });
 
     return res.status(200).json({ message: "Logout successful" });
+  },
+
+  updateProfileHandler: async (req, res) => {
+    try {
+      const { profilePic } = req.body;
+
+      if (!profilePic) {
+        return res.status(400).json({ message: "Profile picture is required" });
+      }
+
+      const userId = req.user._id;
+
+      const uploadedProfilePic = await cloudinary.uploader.upload(profilePic);
+
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { profilePicture: uploadedProfilePic.secure_url },
+        { new: true },
+      ).select("-password");
+
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      return res.status(200).json({
+        message: "Profile updated successfully",
+        user: {
+          id: updatedUser._id,
+          fullname: updatedUser.fullName,
+          email: updatedUser.email,
+          profilePicture: updatedUser.profilePicture,
+        },
+      });
+    } catch (error) {
+      console.log("Error while updating profile: " + error.message);
+      return res
+        .status(500)
+        .json({ message: "Error while updating profile " + error.message });
+    }
+  },
+
+  checkHandler: async (req, res) => {
+    return res.status(200).json({
+      message: "User is authenticated",
+      user: req.user,
+    });
   },
 };
