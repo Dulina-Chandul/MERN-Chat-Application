@@ -7,7 +7,7 @@ import { sendWelcomeEmail } from "../../utils/emailHandlers.js";
 import { CLIENT_URL } from "../../constants/env.js";
 
 export const authController = {
-  signUp: async (req, res) => {
+  signUpHandler: async (req, res) => {
     const { fullName, email, password } = req.body;
 
     try {
@@ -72,5 +72,50 @@ export const authController = {
         .status(500)
         .json({ message: "Error while signing up " + error.message });
     }
+  },
+
+  loginHandler: async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res.status(400).json({ message: "Invalid email or password" });
+      }
+
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordMatch) {
+        return res.status(400).json({ message: "Invalid email or password" });
+      }
+
+      generateToken(user._id, res);
+
+      return res.status(200).json({
+        message: "Login Successful",
+        user: {
+          id: user._id,
+          fullname: user.fullName,
+          email: user.email,
+          profilePicture: user.profilePicture,
+        },
+      });
+    } catch (error) {
+      console.log("Error while logging in: " + error.message);
+      return res
+        .status(500)
+        .json({ message: "Error while logging in " + error.message });
+    }
+  },
+
+  logoutHandler: async (_, res) => {
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    return res.status(200).json({ message: "Logout successful" });
   },
 };
