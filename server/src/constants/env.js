@@ -29,3 +29,6 @@ export const CLOUDINARY_CLOUD_NAME = getEnv("CLOUDINARY_CLOUD_NAME");
 export const CLOUDINARY_API_KEY = getEnv("CLOUDINARY_API_KEY");
 export const CLOUDINARY_API_SECRET = getEnv("CLOUDINARY_API_SECRET");
 // export const GEMINI_API_KEY = getEnv("GEMINI_API_KEY");
+
+export const ARCJET_KEY = getEnv("ARCJET_KEY");
+export const ARCJET_ENV = getEnv("ARCJET_ENV", "development");
