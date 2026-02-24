@@ -5,6 +5,7 @@ import User from "../../models/user/User.model.js";
 import { generateToken } from "../../utils/jwt.js";
 import { sendWelcomeEmail } from "../../utils/emailHandlers.js";
 import { CLIENT_URL } from "../../constants/env.js";
+import cloudinary from "../../config/cloudinary.js";
 
 export const authController = {
   signUpHandler: async (req, res) => {
