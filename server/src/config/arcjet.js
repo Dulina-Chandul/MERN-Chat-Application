@@ -5,17 +5,17 @@ import { isSpoofedBot } from "@arcjet/inspect";
 const aj = arcjet({
   key: ARCJET_KEY,
   rules: [
-    shield({ mode: "LIVE" }),
+    shield({ mode: "DRY_RUN" }),
 
     detectBot({
-      mode: "LIVE",
+      mode: "DRY_RUN",
 
       allow: ["CATEGORY:SEARCH_ENGINE"],
     }),
     slidingWindow({
-      mode: "LIVE",
-      max: 100,
-      interval: 60 * 1000,
+      mode: "DRY_RUN",
+      max: 5,
+      interval: 60,
     }),
   ],
 });
