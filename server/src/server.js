@@ -8,6 +8,7 @@ import connectDB from "./config/connectDB.js";
 import { PORT } from "./constants/env.js";
 
 import dotenv from "dotenv";
+import messageRouter from "./routes/message/message.route.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
+app.use("/api/messages", messageRouter);
 
 //* Make ready for deployment
 if (process.env.NODE_ENV === "production") {
