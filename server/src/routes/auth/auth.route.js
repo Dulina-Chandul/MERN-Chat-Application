@@ -23,6 +23,10 @@ authRouter.put(
   authController.updateProfileHandler,
 );
 
+authRouter.get("/test", (req, res) => {
+  res.json({ message: "This is a test route." });
+});
+
 //* Check if user is authenticated
 authRouter.get("/check", authenticate, authController.checkHandler);
 
