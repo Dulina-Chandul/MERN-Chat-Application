@@ -12,11 +12,7 @@ messageRouter.get(
 );
 
 //* Get chat partners
-messageRouter.get(
-  "/chats",
-  authenticate,
-  messageController.getChatPartnersHandler,
-);
+messageRouter.get("/chats", messageController.getChatPartnersHandler);
 
 //* Get messages by user ids
 messageRouter.get("/:id", messageController.getMessageByUserIdsHandler);
