@@ -17,7 +17,7 @@ messageRouter.get("/chats", messageController.getChatPartnersHandler);
 //* Get messages by user ids
 messageRouter.get("/:id", messageController.getMessageByUserIdsHandler);
 
-//* Send a message to the user
+//* Send a message
 messageRouter.post("/send/:id", messageController.sendMessageHandler);
 
 export default messageRouter;
