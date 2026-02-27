@@ -16,7 +16,36 @@ export const messageController = {
       return res.status(500).json({ message: "Error fetching contacts" });
     }
   },
-  getChatPartnersHandler: async (req, res) => {},
+  getChatPartnersHandler: async (req, res) => {
+    try {
+      const loggedInUserId = req.user._id;
+
+      const messages = await Message.find({
+        $or: [{ senderId: loggedInUserId }, { receiverId: loggedInUserId }],
+      });
+
+      const chatPartnerIds = [
+        ...new Set(
+          messages.map((msg) =>
+            msg.senderId.equals(loggedInUserId)
+              ? msg.receiverId.toString()
+              : msg.senderId.toString(),
+          ),
+        ),
+      ];
+
+      const chatPartners = await User.find({
+        _id: { $in: chatPartnerIds },
+      }).select("-password");
+
+      return res
+        .status(200)
+        .json({ message: "Chat partners fetched successfully", chatPartners });
+    } catch (error) {
+      console.log("Error fetching chat partners:", error.message);
+      return res.status(500).json({ message: "Error fetching chat partners" });
+    }
+  },
   getMessageByUserIdsHandler: async (req, res) => {
     try {
       const myId = req.user._id;
@@ -49,6 +78,23 @@ export const messageController = {
 
       const receiverId = req.params.id;
       const senderId = req.user._id;
+
+      if (!text && !image) {
+        return res
+          .status(400)
+          .json({ message: "Message text or image is required" });
+      }
+
+      if (senderId.equals(receiverId)) {
+        return res
+          .status(400)
+          .json({ message: "You cannot send message to yourself" });
+      }
+
+      const receiverExists = await User.exists({ _id: receiverId });
+      if (!receiverExists) {
+        return res.status(404).json({ message: "Receiver not found" });
+      }
 
       let imageUrl;
 
