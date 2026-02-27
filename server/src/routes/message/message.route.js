@@ -4,32 +4,34 @@ import { authenticate } from "../../middleware/auth/auth.middleware.js";
 
 const messageRouter = express.Router();
 
+messageRouter.use(authenticate);
+
 //* Get all contacts
 messageRouter.get(
   "/contacts",
-  authenticate,
+
   messageController.getAllContactsHandler,
 );
 
 //* Get chat partners
 messageRouter.get(
   "/chats",
-  authenticate,
-  messageController.getChatPartnersHandler,
-);
 
-//* Get messages by user id
-messageRouter.get(
-  "/:id",
-  authenticate,
-  messageController.getMessageByUserIdsHandler,
+  messageController.getChatPartnersHandler,
 );
 
 //* Send a message
 messageRouter.post(
   "/send/:id",
-  authenticate,
+
   messageController.sendMessageHandler,
+);
+
+//* Get messages by user id
+messageRouter.get(
+  "/:id",
+
+  messageController.getMessageByUserIdsHandler,
 );
 
 export default messageRouter;
