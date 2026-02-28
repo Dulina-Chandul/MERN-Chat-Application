@@ -1,11 +1,16 @@
 import React from "react";
+import { Route, Routes } from "react-router";
+import ChatPage from "./pages/ChatPage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello World!</h1>
-      <button className="btn btn-primary">Click me</button>
-    </div>
+    <Routes>
+      <Route path="/" element={<ChatPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+    </Routes>
   );
 };
 
