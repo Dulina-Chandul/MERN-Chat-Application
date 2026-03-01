@@ -7,3 +7,5 @@ const axiosInstance = axios.create({
       : "https://domain.com/api",
   withCredentials: true,
 });
+
+export default axiosInstance;
