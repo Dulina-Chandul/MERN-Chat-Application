@@ -4,6 +4,7 @@ import ChatPage from "./pages/ChatPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import { useAuthStore } from "./store/useAuthStore";
+import PageLoader from "./components/PageLoader";
 
 const App = () => {
   const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
@@ -13,6 +14,8 @@ const App = () => {
   }, [checkAuth]);
 
   console.log("Auth user in app : " + authUser);
+
+  if (isCheckingAuth) return <PageLoader />;
 
   return (
     <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
