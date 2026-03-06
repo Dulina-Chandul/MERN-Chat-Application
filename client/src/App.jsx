@@ -29,7 +29,7 @@ const App = () => {
           element={authUser ? <ChatPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/"
+          path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
         />
         <Route
