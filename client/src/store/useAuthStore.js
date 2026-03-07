@@ -1,9 +1,11 @@
 import { create } from "zustand";
 import axiosInstance from "../../config/api/axiosInstance.js";
+import toast from "react-hot-toast";
 
 export const useAuthStore = create((set) => ({
   authUser: null,
   isCheckingAuth: true,
+  isSigningUp: false,
 
   checkAuth: async () => {
     try {
@@ -16,6 +18,26 @@ export const useAuthStore = create((set) => ({
       set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
+    }
+  },
+
+  signup: async (data) => {
+    set({ isSigningUp: true });
+    try {
+      const res = await axiosInstance.post("/auth/signup", data);
+      if (res.data.user) {
+        set({ authUser: res.data.user });
+
+        toast.success(res.data.message || "Signup successful!");
+      }
+    } catch (error) {
+      console.log("Error while signing up: " + error.message);
+      toast.error(
+        error.response?.data?.message ||
+          "Error while signing up: " + error.message,
+      );
+    } finally {
+      set({ isSigningUp: false });
     }
   },
 }));
