@@ -112,7 +112,7 @@ const SignUpPage = () => {
                     disabled={isSigningUp}
                   >
                     {isSigningUp ? (
-                      <LoaderIcon className="w-full h-5 animate-spin text-center" />
+                      <LoaderIcon className="w-full h-5 animate-spin text-center mx-auto" />
                     ) : (
                       "Sign Up"
                     )}
