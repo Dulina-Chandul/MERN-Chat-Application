@@ -111,6 +111,7 @@ const SignUpPage = () => {
                     type="submit"
                     disabled={isSigningUp}
                   >
+                    s
                     {isSigningUp ? (
                       <LoaderIcon className="w-full h-5 animate-spin text-center mx-auto" />
                     ) : (
@@ -129,7 +130,7 @@ const SignUpPage = () => {
 
             <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent">
               <div>
-                <img
+                <imgs
                   src="/signup.png"
                   alt="People using mobile devices"
                   className="w-full h-auto object-contain"
