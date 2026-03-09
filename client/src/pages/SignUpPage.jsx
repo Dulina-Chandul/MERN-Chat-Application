@@ -121,7 +121,7 @@ const SignUpPage = () => {
 
                 <div className="mt-6 text-center">
                   <Link to={"/login"} className="auth-link">
-                    Already have an account? Login
+                    Already have an account? Login Now
                   </Link>
                 </div>
               </div>
@@ -136,7 +136,7 @@ const SignUpPage = () => {
                 />
                 <div className="mt-6 text-center">
                   <h3 className="text-xl font-medium text-cyan-400">
-                    Start Your Journey Today
+                    Start Your Journey Today Now
                   </h3>
 
                   <div className="mt-4 flex justify-center gap-4">
