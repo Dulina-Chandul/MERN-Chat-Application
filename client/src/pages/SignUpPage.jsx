@@ -36,7 +36,7 @@ const SignUpPage = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="fullName" className="auth-input-label">
-                      Full Nam e :
+                      Full Name :
                     </label>
                     <div className="relative ">
                       <UserIcon className="auth-input-icon" />
