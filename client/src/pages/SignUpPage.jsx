@@ -89,7 +89,7 @@ const SignUpPage = () => {
                       <LockIcon className="auth-input-icon" />
 
                       <input
-                        type="text"
+                        type="password"
                         id="password"
                         name="password"
                         value={formData.password}
@@ -100,7 +100,7 @@ const SignUpPage = () => {
                           }))
                         }
                         className="input"
-                        placeholder="Enter your full name"
+                        placeholder="Enter your password"
                       />
                     </div>
                   </div>
