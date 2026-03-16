@@ -111,7 +111,6 @@ const SignUpPage = () => {
                     type="submit"
                     disabled={isSigningUp}
                   >
-                    s
                     {isSigningUp ? (
                       <LoaderIcon className="w-full h-5 animate-spin text-center mx-auto" />
                     ) : (
