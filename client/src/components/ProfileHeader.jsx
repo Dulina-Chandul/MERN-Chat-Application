@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStoe } from "../store/useChatStore";
+import { LogOutIcon, Volume2Icon, VolumeOffIcon } from "lucide-react";
+
+const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 
 const ProfileHeader = () => {
   const { logout, authUser, updateProfile } = useAuthStore();
@@ -16,7 +19,21 @@ const ProfileHeader = () => {
     <div className="p-6 border-b border-slate-700/50">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="avatar online">
+          <div className="avatar avatar-online">
+            <button
+              className="size-14 rounded-full overflow-hidden relative group"
+              onClick={() => fileInputRef.current.click()}
+            >
+              <img
+                src={selectedImg || authUser?.profilePicture || "/avatar.png"}
+                alt="User Image"
+                className="size-full object-cover"
+              />
+
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <span className="text-white text-xs ">Change</span>
+              </div>
+            </button>
             <input
               type="file"
               accept="image/*"
@@ -25,6 +42,36 @@ const ProfileHeader = () => {
               onChange={handleImageUpload}
             />
           </div>
+          <div>
+            <h3 className="text-slate-200 font-medium text-base max-w-[180px] truncate">
+              {authUser.fullName}
+            </h3>
+            <p className="text-slate-400 text-xs">Online</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            className="text-slate-400 hover:text-slate-200 transition-colors"
+            onClick={logout}
+          >
+            <LogOutIcon className="5" />
+          </button>
+          <button
+            className="text-slate-400 hover:text-slate-200 transition-colors"
+            onClick={() => {
+              mouseClickSound.currentTime = 0;
+              mouseClickSound
+                .play()
+                .catch((error) => console.log("Audio play error:", error));
+              toggleSound();
+            }}
+          >
+            {isSoundEnabled ? (
+              <Volume2Icon className="size-5" />
+            ) : (
+              <VolumeOffIcon className="size-5" />
+            )}
+          </button>
         </div>
       </div>
     </div>
