@@ -139,7 +139,7 @@ export const authController = {
       const updatedUser = await User.findByIdAndUpdate(
         userId,
         { profilePicture: uploadedProfilePic.secure_url },
-        { new: true },
+        { returnDocument: "after" },
       ).select("-password");
 
       if (!updatedUser) {
