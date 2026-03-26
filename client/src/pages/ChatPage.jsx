@@ -1,6 +1,6 @@
 import React from "react";
 import BorderAnimatedContainer from "../components/BorderAnimatedContainer";
-import { useChatStoe } from "../store/useChatStore";
+import { useChatStore } from "../store/useChatStore";
 import ProfileHeader from "../components/ProfileHeader";
 import ActiveTabSwitch from "../components/ActiveTabSwitch";
 import ChatList from "../components/ChatList";
@@ -9,7 +9,7 @@ import ChatContainer from "../components/ChatContainer";
 import NoConversationPlaceholder from "../components/NoConversationPlaceholder";
 
 const ChatPage = () => {
-  const { activeTab, selectedUser } = useChatStoe();
+  const { activeTab, selectedUser } = useChatStore();
 
   return (
     <div className="relative w-full max-w-6xl h-[800px]">

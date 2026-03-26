@@ -1,9 +1,9 @@
 import React from "react";
-import { useChatStoe } from "../store/useChatStore";
+import { useChatStore } from "../store/useChatStore";
 import { MessageCircleIcon } from "lucide-react";
 
 const NoChatsFound = () => {
-  const { setActiveTab } = useChatStoe();
+  const { setActiveTab } = useChatStore();
 
   return (
     <div className="flex flex-col items-center justify-center py-10 text-center space-y-4">

@@ -3,7 +3,7 @@ import React from "react";
 const UsersLoadingSkeleton = () => {
   return (
     <div className="space-y-2">
-      {[...Array(3)].map((_, index) => {
+      {[...Array(3)].map((_, index) => (
         <div
           className="bg-slate-800/30 p-4 rounded-lg animate-pulse"
           key={index}
@@ -15,8 +15,8 @@ const UsersLoadingSkeleton = () => {
               <div className="h-3 bg-slate-700/70 rounded w-1/2 "></div>
             </div>
           </div>
-        </div>;
-      })}
+        </div>
+      ))}
     </div>
   );
 };
