@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axiosInstance from "../../config/api/axiosInstance";
 import toast from "react-hot-toast";
 
-export const useChatStoe = create((set, get) => ({
+export const useChatStore = create((set, get) => ({
   allContacts: [],
   chats: [],
   messages: [],
@@ -47,6 +47,7 @@ export const useChatStoe = create((set, get) => ({
 
     try {
       const res = await axiosInstance.get("/messages/chats");
+      console.log("This is the output from the getMyChatPartners: ", res);
       set({ chats: res.data.chatPartners });
     } catch (error) {
       console.log("Error while getting messages : " + error.message);

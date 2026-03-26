@@ -1,8 +1,8 @@
 import React from "react";
-import { useChatStoe } from "../store/useChatStore";
+import { useChatStore } from "../store/useChatStore";
 
 const ActiveTabSwitch = () => {
-  const { activeTab, setActiveTab } = useChatStoe();
+  const { activeTab, setActiveTab } = useChatStore();
 
   return (
     <div className="tabs tabs-boxed bg-transparent p-2 m-2 w-full">

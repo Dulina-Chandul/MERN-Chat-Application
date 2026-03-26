@@ -13,6 +13,7 @@ export const useAuthStore = create((set) => ({
       const res = await axiosInstance.get("/auth/check");
       if (res.data.user) {
         set({ authUser: res.data.user });
+        console.log("Auth user from check: ", res.data.user);
       }
     } catch (error) {
       console.log("Error while checking auth: " + error.message);
@@ -28,6 +29,7 @@ export const useAuthStore = create((set) => ({
       const res = await axiosInstance.post("/auth/signup", data);
       if (res?.data?.user) {
         set({ authUser: res.data.user });
+        console.log("Auth user from signup: ", res.data.user);
 
         toast.success(res.data.message || "Signup successful!");
       }
@@ -48,6 +50,7 @@ export const useAuthStore = create((set) => ({
       const res = await axiosInstance.post("/auth/login", data);
       if (res?.data?.user) {
         set({ authUser: res?.data?.user });
+        console.log("Auth user from login: ", res.data.user);
 
         toast.success(res.data.message || "Logging Successfull!");
       }
