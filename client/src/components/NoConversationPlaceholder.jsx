@@ -1,7 +1,21 @@
 import React from "react";
+import { MessageCircleIcon } from "lucide-react";
 
 const NoConversationPlaceholder = () => {
-  return <div>NoConversationPlaceholder</div>;
+  return (
+    <div className="flex flex-col items-center justify-center h-full text-center p-6">
+      <div className="size-20 bg-cyan-500/20 rounded-full flex items-center justify-center mb-6">
+        <MessageCircleIcon className="w-10 h-10 text-cyan-400" />
+      </div>
+      <h3 className="text-xl font-semibold text-slate-200 mb-2">
+        Select a conversation
+      </h3>
+      <p className="text-slate-400 max-w-md">
+        Start a conversation with a friend by clicking on their name in the
+        contact tab or continue a conversation from a previous chat.
+      </p>
+    </div>
+  );
 };
 
 export default NoConversationPlaceholder;
