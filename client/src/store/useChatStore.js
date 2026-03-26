@@ -53,7 +53,24 @@ export const useChatStore = create((set, get) => ({
       console.log("Error while getting messages : " + error.message);
       toast.error(
         Error.response?.data?.message ||
-          "Error while getting messages : " + error.message,
+          "Error while getting messages : " + error?.message,
+      );
+    } finally {
+      set({ isMessagesLoading: false });
+    }
+  },
+
+  getMessagesByUserId: async (userId) => {
+    set({ isMessagesLoading: true });
+
+    try {
+      const response = await axiosInstance.get(`/messages/${userId}`);
+      set({ messages: response.data.messages });
+    } catch (error) {
+      console.log("Error while getting messages : " + error.message);
+      toast.error(
+        Error.response?.data?.message ||
+          "Error while getting messages : " + error?.message,
       );
     } finally {
       set({ isMessagesLoading: false });
