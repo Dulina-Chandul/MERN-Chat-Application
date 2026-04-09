@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import useKeyboardSound from "../hooks/useKeyboardSound";
 import { useChatStore } from "../store/useChatStore";
+import toast from "react-hot-toast";
 
 const MessageInput = () => {
   const { playRandomKeyStrokeSound } = useKeyboardSound();
@@ -22,6 +23,23 @@ const MessageInput = () => {
     setText("");
     setImagePreview("");
 
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => setImagePreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  const removeImage = () => {
+    setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
