@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import useKeyboardSound from "../hooks/useKeyboardSound";
 import { useChatStore } from "../store/useChatStore";
 import toast from "react-hot-toast";
-import { ImageIcon, XIcon } from "lucide-react";
+import { ImageIcon, SendIcon, XIcon } from "lucide-react";
 
 const MessageInput = () => {
   const { playRandomKeyStrokeSound } = useKeyboardSound();
@@ -19,10 +19,10 @@ const MessageInput = () => {
 
     if (isSoundEnabled) playRandomKeyStrokeSound();
 
-    sendMessage({ text: text.trim(), image: imagePreview });
+    sendMessage({ text: text.trim(), image: imagePreview || undefined });
 
     setText("");
-    setImagePreview("");
+    setImagePreview(null);
 
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -94,6 +94,13 @@ const MessageInput = () => {
           className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-4 transition-colors ${imagePreview ? "text-cyan-500" : ""}`}
         >
           <ImageIcon className="size-5" />
+        </button>
+        <button
+          className="bg-linear-to-r  from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          type="submit"
+          disabled={!text.trim() && !imagePreview}
+        >
+          <SendIcon className="size-5" />
         </button>
       </form>
     </div>
