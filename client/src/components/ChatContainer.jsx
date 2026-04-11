@@ -24,7 +24,7 @@ const ChatContainer = () => {
           <div className="max-w-3xl mx-auto space-y-6">
             {messages.map((msg) => (
               <div
-                key={msg._id}
+                key={msg?._id}
                 className={`chat ${msg.senderId === authUser._id ? "chat-end" : "chat-start"}`}
               >
                 <div
