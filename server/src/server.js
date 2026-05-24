@@ -9,10 +9,10 @@ import connectDB from "./config/connectDB.js";
 import { CLIENT_URL, PORT } from "./constants/env.js";
 
 import messageRouter from "./routes/message/message.route.js";
+import { app, server } from "./config/socket.js";
 
 dotenv.config();
 
-const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json({ limit: "5mb" }));
@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("Server is running on port " + PORT);
   connectDB();
 });
