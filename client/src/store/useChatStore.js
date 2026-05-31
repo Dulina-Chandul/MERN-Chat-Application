@@ -3,8 +3,6 @@ import axiosInstance from "../../config/api/axiosInstance";
 import toast from "react-hot-toast";
 import { useAuthStore } from "./useAuthStore";
 
-const notificationSound = new Audio("/sounds/notification.mp3");
-
 export const useChatStore = create((set, get) => ({
   allContacts: [],
   chats: [],
@@ -126,6 +124,7 @@ export const useChatStore = create((set, get) => ({
       set({ messages: [...currentMessages, message] });
 
       if (isSoundEnabled) {
+        const notificationSound = new Audio("/sounds/notification.mp3");
         notificationSound.currentTime = 0;
         notificationSound
           .play()
