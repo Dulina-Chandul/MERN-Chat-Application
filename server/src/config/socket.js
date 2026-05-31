@@ -1,8 +1,8 @@
 import express from "express";
 import { Server } from "socket.io";
 import http from "http";
-import { CLIENT_URL } from "../constants/env";
-import { socketAuthMiddleware } from "../middleware/socket-io/socket.auth.middleware";
+import { CLIENT_URL } from "../constants/env.js";
+import { socketAuthMiddleware } from "../middleware/socket-io/socket.auth.middleware.js";
 
 const app = express();
 const server = http.createServer(app);

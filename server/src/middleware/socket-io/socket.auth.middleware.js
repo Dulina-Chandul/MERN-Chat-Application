@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../constants/env";
-import User from "../../models/user/User.model";
+import { JWT_SECRET } from "../../constants/env.js";
+import User from "../../models/user/user.model.js";
 
 export const socketAuthMiddleware = async (socket, next) => {
   try {
