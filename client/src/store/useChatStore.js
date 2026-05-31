@@ -111,4 +111,33 @@ export const useChatStore = create((set, get) => ({
       );
     }
   },
+
+  subscribeToMessages: () => {
+    const { selectedUser, isSoundEnabled } = get();
+
+    if (!selectedUser) return;
+
+    const socket = useAuthStore.getState().socket;
+
+    socket.on("newMessage", (message) => {
+      const isMessageFromSelectedUsed = message.senderId === selectedUser._id;
+      if (!isMessageFromSelectedUsed) return;
+
+      const currentMessages = get().messages;
+      set({ messages: [...currentMessages, message] });
+
+      if (isSoundEnabled) {
+        const notificationSound = new Audio("/sounds/notification.mp3");
+        notificationSound.currentTime = 0;
+        notificationSound
+          .play()
+          .catch((e) => console.log("Error playing sound: ", e));
+      }
+    });
+  },
+
+  unsubscribeFromMessages: () => {
+    const socket = useAuthStore.getState().socket;
+    socket.off("newMessage");
+  },
 }));
