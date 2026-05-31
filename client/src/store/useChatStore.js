@@ -3,6 +3,8 @@ import axiosInstance from "../../config/api/axiosInstance";
 import toast from "react-hot-toast";
 import { useAuthStore } from "./useAuthStore";
 
+const notificationSound = new Audio("/sounds/notification.mp3");
+
 export const useChatStore = create((set, get) => ({
   allContacts: [],
   chats: [],
@@ -110,5 +112,25 @@ export const useChatStore = create((set, get) => ({
           "Error while sending message : " + error?.message,
       );
     }
+  },
+
+  subscribeToMessage: () => {
+    const { selectedUser, isSoundEnabled } = get();
+
+    if (!selectedUser) return;
+
+    const socket = useAuthStore.getState().socket;
+
+    socket.on("newMessage", (message) => {
+      const currentMessages = get().messages;
+      set({ messages: [...currentMessages, message] });
+
+      if (isSoundEnabled) {
+        notificationSound.currentTime = 0;
+        notificationSound
+          .play()
+          .catch((e) => console.log("Error playing sound: ", e));
+      }
+    });
   },
 }));
